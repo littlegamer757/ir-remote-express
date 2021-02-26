@@ -1,0 +1,25 @@
+{
+  "base": "irsend SEND_ONCE ceiling-lamp ",
+  "commands": [
+    {
+      "name": "on",
+      "description": "switch on",
+      "arguments": "KEY_POWER"
+    },
+    {
+      "name": "off",
+      "description": "switch off",
+      "arguments": "KEY_POWER"
+    },
+    {
+      "name": "brup",
+      "description": "brightness up",
+      "arguments": "BRIGHTNESSUP"
+    },
+    {
+      "name": "brdw",
+      "description": "brightness down",
+      "arguments": "BRIGHTNESSDOWN"
+    }
+  ]
+}
