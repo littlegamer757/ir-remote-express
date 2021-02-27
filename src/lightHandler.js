@@ -28,7 +28,7 @@ const handleLights = (light_id, light_state) => {  // executes the appropriate s
 
 const readCommand = (light_state) => {
     if (!commands) {
-        const raw = fs.readFileSync('commands.json').toString();
+        const raw = fs.readFileSync('src/res/commands.json').toString();
         const json = JSON.parse(raw);
 
         commands = Array.from(json.commands);
