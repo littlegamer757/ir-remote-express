@@ -4,22 +4,26 @@
     {
       "name": "on",
       "description": "switch on",
-      "arguments": "KEY_POWER"
+      "arguments": "KEY_POWER",
+      "changesState": true
     },
     {
       "name": "off",
       "description": "switch off",
-      "arguments": "KEY_POWER"
+      "arguments": "KEY_POWER",
+      "changesState": true
     },
     {
       "name": "brup",
       "description": "brightness up",
-      "arguments": "BRIGHTNESSUP"
+      "arguments": "BRIGHTNESSUP",
+      "changesState": false
     },
     {
       "name": "brdw",
       "description": "brightness down",
-      "arguments": "BRIGHTNESSDOWN"
+      "arguments": "BRIGHTNESSDOWN",
+      "changesState": false
     }
   ]
 }

@@ -1,10 +1,13 @@
 const exec = require('child_process').execSync;
 const fs = require('fs');
+const helper = require('./util/loggingHelper');
+
+let states = [];
 
 let commands;
 let base;
 
-const handleLights = (light_id, light_state) => {  // executes the appropriate syscalls for light events
+const updateLight = (light_id, light_state) => {  // executes the appropriate syscalls for light events
     if (light_id !== '1') return;
 
     const command = readCommand(light_state);
@@ -12,19 +15,27 @@ const handleLights = (light_id, light_state) => {  // executes the appropriate s
 
     if (command) {
         const c = base + command.arguments;
+        const message = `Applied action ${command.description} to light ${light_id}`
 
-        result.message = `Applied action ${command.description} to light ${light_id}`;
+        result.message = message;
         result.command = c;
 
-        // exec(c, (error, stdout, stderr) => {
-        //     console.log('stdout: ', stdout);
-        //     console.log('stderr: ', stderr);
-        //     if (error) console.log('exec error: ', error)
-        // });
+        helper.log(message);
+
+        if (command.changesState === true) setState(light_id, command.name);
     }
 
     return result;
 }
+
+const retrieveLight = (light_id) => {  // returns the state of a given lamp
+    if (light_id !== '1') return;
+
+    const result = getState(light_id);
+    return result ? result : 'off';
+}
+
+// Helper functions
 
 const readCommand = (light_state) => {
     if (!commands) {
@@ -38,4 +49,12 @@ const readCommand = (light_state) => {
     return commands.filter(c => c.name === light_state)[0];
 }
 
-module.exports = {handleLights};
+const setState = (light_id, newState) => {
+    states[light_id - 1] = newState;
+}
+
+const getState = (light_id) => {
+    return states[light_id - 1];
+};
+
+module.exports = {updateLight, retrieveLight};
