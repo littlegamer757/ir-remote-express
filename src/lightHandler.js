@@ -1,60 +1,61 @@
 const exec = require('child_process').execSync;
+// Still have to use this guy at some point, but that seems like a problem for future me.
+
 const fs = require('fs');
 const helper = require('./util/loggingHelper');
 
-let states = [];
+let lights = [];
 
-let commands;
-let base;
+const init = () => {
+    readLights();
+}
 
-const updateLight = (light_id, light_state) => {  // executes the appropriate syscalls for light events
-    if (light_id !== '1') return;
-
-    const command = readCommand(light_state);
+const updateLight = (lightId, newState) => {  // executes the appropriate syscalls for light events
+    const light = findLightWithId(lightId);
     const result = {message: 'Command undefined'};
 
-    if (command) {
-        const c = base + command.arguments;
-        const message = `Applied action ${command.description} to light ${light_id}`
+    if (!light) {
+        result.message = 'Light undefined';
+        return result;
+    }
 
+    const base = light.commandBase;
+    const command = findLightCommand(lightId, newState);
+
+    if (command) {
+        const cmdFull = `${base} ${command.commandArguments}`;
+        const message = `Applied action '${command.name}' to light ${lightId}`
+
+        result.lightId = lightId;
         result.message = message;
-        result.command = c;
+        result.command = cmdFull;
+
+        if (command.changesLightState) findLightWithId(lightId).lightState = command.changesLightStateTo;
 
         helper.log(message);
-
-        if (command.changesState === true) setState(light_id, command.name);
     }
 
     return result;
 }
 
-const retrieveLight = (light_id) => {  // returns the state of a given lamp
-    if (light_id !== '1') return;
-
-    const result = getState(light_id);
-    return result ? result : 'off';
+const getLightState = (light_id) => {
+    const result = {state: 'Light not found'}
+    const light = findLightWithId(light_id);
+    if (!light) return result;
+    result.state = light.lightState ?? 'Unknown state';
+    return result;
 }
 
 // Helper functions
 
-const readCommand = (light_state) => {
-    if (!commands) {
-        const raw = fs.readFileSync('src/res/commands.json').toString();
-        const json = JSON.parse(raw);
-
-        commands = Array.from(json.commands);
-        base = json.base;
-    }
-
-    return commands.filter(c => c.name === light_state)[0];
-}
-
-const setState = (light_id, newState) => {
-    states[light_id - 1] = newState;
-}
-
-const getState = (light_id) => {
-    return states[light_id - 1];
+const readLights = () => {
+    const raw = fs.readFileSync('src/res/lights.json').toString();
+    const json = JSON.parse(raw);
+    lights = Array.from(json);
 };
 
-module.exports = {updateLight, retrieveLight};
+const findLightWithId = (lightId) => lights.find(light => light.lightId === lightId);
+
+const findLightCommand = (lightId, cmdName) => findLightWithId(lightId).commands.find(cmd => cmd.name === cmdName);
+
+module.exports = {updateLight, retrieveLight: getLightState, init};

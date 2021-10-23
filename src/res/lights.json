@@ -1,0 +1,36 @@
+[
+  {
+    "lightId": 0,
+    "lightName": "Ceiling Lamp",
+    "lightState": "off",
+    "commandBase": "irsend SEND_ONCE ceiling-lamp",
+    "commands": [
+      {
+        "name": "on",
+        "description": "Switches the lamp on",
+        "commandArguments": "KEY_POWER",
+        "changesLightState": true,
+        "changesLightStateTo": "on"
+      },
+      {
+        "name": "off",
+        "description": "Switches the lamp off",
+        "commandArguments": "KEY_POWER",
+        "changesLightState": true,
+        "changesLightStateTo": "off"
+      },
+      {
+        "name": "brup",
+        "description": "Turns the lamp's brightness up",
+        "commandArguments": "BRIGHTNESSUP",
+        "changesLightState": false
+      },
+      {
+        "name": "brdw",
+        "description": "Turns the lamp's brightness down",
+        "commandArguments": "BRIGHTNESSDOWN",
+        "changesLightState": false
+      }
+    ]
+  }
+]

@@ -8,13 +8,12 @@ app.get("/", (req, res) => {
 });
 
 app.get("/light/:id", (req, res) => {
-    const result = lightHandler.retrieveLight(req.params.id);
-    res.send({"light": req.params.id, "state": result});
-})
+    const result = lightHandler.retrieveLight(parseInt(req.params.id));
+    res.send(result);
+});
 
-app.get("/light/:id/:state", (req, res) => {
-    const result = lightHandler.updateLight(req.params.id, req.params.state);
-    result.light = req.params.id;
+app.get("/light/:id/:command", (req, res) => {
+    const result = lightHandler.updateLight(parseInt(req.params.id), req.params.command);
     res.send(result);
 });
 
@@ -24,5 +23,6 @@ app.listen(3000, err => {
         return;
     }
 
+    lightHandler.init();
     helper.log("Listening on port 3000");
 });
