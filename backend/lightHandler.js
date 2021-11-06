@@ -49,7 +49,7 @@ const getLightState = (light_id) => {
 // Helper functions
 
 const readLights = () => {
-    const raw = fs.readFileSync('src/res/lights.json').toString();
+    const raw = fs.readFileSync('backend/res/lights.json').toString();
     const json = JSON.parse(raw);
     lights = Array.from(json);
 };

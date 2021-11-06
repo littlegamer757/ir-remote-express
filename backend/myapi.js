@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 
 app.get("/", (req, res) => {
-    res.send("<h1>Seas Jungs</h1>");
+    res.sendFile('index.html', {root: 'frontend'});
 });
 
 app.get("/light/:id", (req, res) => {
@@ -23,6 +23,7 @@ app.listen(3000, err => {
         return;
     }
 
+    app.use(express.static("frontend"));
     lightHandler.init();
     helper.log("Listening on port 3000");
 });

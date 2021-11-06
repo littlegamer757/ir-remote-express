@@ -1,0 +1,90 @@
+:root {
+	--bg-dark: #282a36;
+	--bg-light: #44475a;
+	--white: #f8f8f2;
+	--cyan: #8be9fd;
+	--purple: #6272a4;
+}
+
+html, body {
+	margin: 0;
+	height: 100%;
+}
+
+body {
+	background-color: var(--bg-dark);
+	font-family: sans-serif;
+}
+
+header {
+	background-color: var(--bg-light);
+	box-shadow: 0 2px 10px -1px black;
+	padding: 1em;
+}
+
+h1, h3 {
+	margin: 0;
+}
+
+#header {
+	color: var(--purple);
+}
+
+main {
+	padding: 2em;
+	height: available;
+}
+
+.lamp-cards {
+	display: flex;
+	flex-direction: column;
+}
+
+.lamp-card {
+	border-radius: 5px;
+	padding: 1em;
+	display: inline;
+	width: fit-content;
+	color: var(--white);
+	background-color: var(--bg-light);
+	box-shadow: 4px 4px 15px -2px black;
+}
+
+.lamp-name {
+	color: var(--cyan);
+}
+
+.lamp-name:hover .lamp-id {
+	visibility: visible;
+}
+
+.lamp-state {
+	color: cyan;
+	background-color: var(--bg-dark);
+	border-radius: 5px;
+	font-family: "Source Code Pro", monospace;
+	padding: 3px 5px;
+}
+
+.lamp-card label {
+	font-size: .9em;
+}
+
+.lamp-card select, .lamp-card button {
+	background-color: var(--bg-dark);
+	border-radius: 5px;
+	border: 2px solid var(--bg-dark);
+}
+
+.lamp-card select {
+	color: var(--white);
+}
+
+.lamp-card button {
+	color: var(--cyan);
+}
+
+.lamp-id {
+	visibility: hidden;
+	font-weight: normal;
+}

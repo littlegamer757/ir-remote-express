@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Bedroom Remote</title>
+		<link rel="stylesheet" href="css/index.css">
+	</head>
+	<body>
+		<header>
+			<h1 id="header">Bedroom Remote</h1>
+		</header>
+		<main>
+			<div class="lamp-cards">
+				<div class="lamp-card">
+					<h3 class="lamp-name">Ceiling Lamp <span class="lamp-id">id: 0</span></h3>
+					<p class="lamp-state-text">Currently turned <span class="lamp-state">Off</span></p>
+					<form method="get">
+						<label for="command-dropdown">Send Command:</label><br>
+						<select name="execCmd" id="command-dropdown">
+							<option value="on">On</option>
+							<option value="off">Off</option>
+							<option value="brup">Increase Brightness</option>
+							<option value="brdown">Decrease brightness</option>
+						</select>
+						<button type="submit">Execute</button>
+					</form>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>
